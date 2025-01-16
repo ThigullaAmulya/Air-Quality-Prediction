@@ -4,60 +4,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Air Quality Prediction</title>
+    <title>Welcome & Air Quality Prediction</title>
     <style>
-        /* General Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
- 
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: Arial, sans-serif;
             background: linear-gradient(135deg, #4CAF50, #2196F3);
+            margin: 0;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #fff;
+            flex-direction: column;
+            color: white;
         }
  
-        .container {
-            width: 90%;
-            max-width: 600px; /* Reduced max-width */
+        .welcome-section {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeIn 1.5s ease;
+        }
+ 
+        .welcome-section h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+ 
+        .welcome-section button {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 10px;
+            background-color: #ff5722;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+ 
+        .welcome-section button:hover {
+            background-color: #e64a19;
+        }
+ 
+        .form-container {
+            display: none;
             background-color: rgba(255, 255, 255, 0.1);
-            padding: 20px; /* Reduced padding */
+            padding: 30px;
             border-radius: 15px;
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
             backdrop-filter: blur(10px);
             text-align: center;
+            width: 80%;
+            max-width: 600px;
         }
  
-        .container h1 {
-            font-size: 2em; /* Reduced font size */
-            margin-bottom: 15px;
-            color: #fff;
+        .form-container h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
         }
  
         .form-group {
-            margin-bottom: 15px; /* Reduced margin */
+            margin-bottom: 20px;
             text-align: left;
         }
  
         label {
             display: block;
-            font-size: 1em; /* Reduced font size */
-            margin-bottom: 5px; /* Reduced margin */
+            font-size: 1em;
+            margin-bottom: 5px;
             color: #ddd;
         }
  
         input[type="number"] {
             width: 100%;
-            padding: 10px; /* Reduced padding */
+            padding: 12px;
             border: none;
-            border-radius: 8px; /* Reduced border-radius */
-            font-size: 0.9em; /* Reduced font size */
+            border-radius: 10px;
+            font-size: 1em;
             margin-top: 5px;
             background-color: rgba(255, 255, 255, 0.9);
             color: #333;
@@ -71,11 +92,11 @@
  
         input[type="submit"] {
             background-color: #ff5722;
-            color: #fff;
+            color: white;
             border: none;
-            padding: 10px; /* Reduced padding */
-            font-size: 1em; /* Reduced font size */
-            border-radius: 8px; /* Reduced border-radius */
+            padding: 15px;
+            font-size: 1.2em;
+            border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s ease;
             display: inline-block;
@@ -84,89 +105,63 @@
  
         input[type="submit"]:hover {
             background-color: #e64a19;
-            transform: translateY(-2px);
-        }
- 
-        .result {
-            font-size: 1.2em; /* Reduced font size */
-            color: #fff;
-            margin-top: 15px; /* Reduced margin */
-            font-weight: bold;
-        }
- 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .container {
-                width: 95%;
-                padding: 15px; /* Further reduced padding */
-            }
- 
-            h1 {
-                font-size: 1.8em; /* Reduced font size */
-            }
- 
-            input[type="submit"] {
-                font-size: 0.9em; /* Reduced font size */
-            }
-        }
- 
-        /* Animations */
-        .container {
-            animation: fadeIn 1.5s ease;
         }
  
         @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: scale(0.9);
             }
+ 
             to {
                 opacity: 1;
-                transform: scale(1);
             }
         }
     </style>
 </head>
  
 <body>
-    <div class="container">
-        <h1>Air Quality Prediction</h1>
-        <form action="/predict" method="post">
+    <!-- Welcome Section -->
+    <div class="welcome-section" id="welcome">
+        <h1>Welcome to Air Quality Prediction</h1>
+        <button onclick="showForm()">Get Started</button>
+    </div>
+ 
+    <!-- Form Section -->
+    <div class="form-container" id="form-container">
+        <h2>Enter Details for Prediction</h2>
+        <form action="/predict" method="POST">
             <div class="form-group">
                 <label for="Temperature">Temperature (°C):</label>
                 <input type="number" step="any" name="Temperature" placeholder="Enter temperature in °C" required>
             </div>
- 
             <div class="form-group">
                 <label for="NO2">NO2 (ppm):</label>
                 <input type="number" step="any" name="NO2" placeholder="Enter NO2 level in ppm" required>
             </div>
- 
             <div class="form-group">
                 <label for="SO2">SO2 (ppm):</label>
                 <input type="number" step="any" name="SO2" placeholder="Enter SO2 level in ppm" required>
             </div>
- 
             <div class="form-group">
                 <label for="CO">CO (ppm):</label>
                 <input type="number" step="any" name="CO" placeholder="Enter CO level in ppm" required>
             </div>
- 
             <div class="form-group">
                 <label for="Proximity_to_Industrial_Areas">Proximity to Industrial Areas (km):</label>
-                <input type="number" step="any" name="Proximity_to_Industrial_Areas"
-                    placeholder="Enter distance in kilometers" required>
+                <input type="number" step="any" name="Proximity_to_Industrial_Areas" placeholder="Enter distance in km"
+                    required>
             </div>
- 
             <input type="submit" value="Predict">
         </form>
- 
-        {% if prediction_text %}
-        <div class="result">{{ prediction_text }}</div>
-        {% endif %}
     </div>
+ 
+    <script>
+        function showForm() {
+            document.getElementById('welcome').style.display = 'none';
+            document.getElementById('form-container').style.display = 'block';
+        }
+    </script>
 </body>
  
 </html>
- 
  
